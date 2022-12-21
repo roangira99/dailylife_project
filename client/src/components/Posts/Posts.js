@@ -1,4 +1,5 @@
 import React from 'react';
+import { Grid, CircularProgress } from '@material-ui/core';
 import { useSelector } from 'react-redux'; // enables access to global redux store
 
 import Post from './Post/Post'; // Enables us to create post components
@@ -11,11 +12,15 @@ const Posts = () => {
     console.log(posts);
 
     return (
-        <> 
-            <h1>POSTS</h1>
-            <Post />
-            <Post />
-        </>
+        !posts.length ? <CircularProgress /> : ( // alternative way to write an if-else statement
+            <Grid className={classes.container} container alignItems="stretch" spacing={3}>
+                {posts.map((post) => (
+                    <Grid key={post._id} tem xa={12} sm={6}>
+                        <Post post={post} />
+                    </Grid>
+                ))}
+            </Grid>
+        )
     );
 }
 
