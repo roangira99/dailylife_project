@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'; // enables access to global redux sto
 import Post from './Post/Post'; // Enables us to create post components
 import useStyles from './styles'
 
-const Posts = () => {
+const Posts = ({setCurrentId }) => {
     const posts = useSelector((state) => state.posts); // example of a hook
     const classes = useStyles(); // example of a hook
     
@@ -16,7 +16,7 @@ const Posts = () => {
             <Grid className={classes.container} container alignItems="stretch" spacing={3}>
                 {posts.map((post) => (
                     <Grid key={post._id} tem xa={12} sm={6}>
-                        <Post post={post} />
+                        <Post post={post} setCurrentId={setCurrentId} />
                     </Grid>
                 ))}
             </Grid>

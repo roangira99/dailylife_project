@@ -1,4 +1,5 @@
 // File for creating all handlers for our routes (executin the functions in routes/posts.js)
+import mongoose from 'mongoose';
 import PostMessage from '../models/postMessage.js'; //gives access to model
 
 // Asynchronous functions are used to find something inside of a model
@@ -24,4 +25,17 @@ export const createPost = async (req, res) => {
     } catch (error) {
         res.status(409).json({ message: error.message });
     }
+}
+
+// Function for updating a post
+export const updatePost = async (req, res) => {
+    const { id: _id } = req.params;
+    const post = req.body;
+
+    if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('No post with that id');
+
+    const updatePost = await PostMessage.findByIdAndUpdate(_id, post, { new: true }); // accessing the updted post
+
+    res.json(updatePost);
+
 }
