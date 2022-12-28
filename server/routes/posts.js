@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { getPosts, createPost, updatePost, deletePost } from '../contollers/posts.js'
+import { getPosts, createPost, updatePost, deletePost, likePost } from '../contollers/posts.js'
 
 const router = express.Router();
 
@@ -9,6 +9,7 @@ router.get('/', getPosts);
 router.post('/', createPost);
 router.patch('/:id', updatePost) // for updating existing documents
 router.delete('/:id', deletePost);
+router.patch('/:id/likePost', likePost);
 
 // export the whole router
 export default router;
