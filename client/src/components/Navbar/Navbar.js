@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { AppBar, Avatar, Button, Toolbar, Typography } from '@material-ui/core';
 
@@ -7,8 +7,17 @@ import dailylife from '../../images/dailylife.png';
 
 const Navbar = () => {
      const classes = useStyles();
+     const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
 
-     const user = null;
+     console.log(user);
+
+     useEffect(() => {
+        const token = user?.token;
+
+        // JWT...
+
+        setUser(JSON.parse(localStorage.getItem('profile')));
+     }, []);
 
      return(
         <AppBar className={classes.appBar} position='static' color="inherit">
