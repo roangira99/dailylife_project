@@ -43,7 +43,7 @@ const Auth = () => {
     } catch (error) {
         console.log(error);
     }
-  };
+  };        
 
   const googleFailure = (error) => {
     console.log(error);
