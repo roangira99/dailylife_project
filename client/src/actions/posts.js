@@ -1,5 +1,5 @@
 import { FETCH_ALL, CREATE, UPDATE, DELETE } from '../constants/actionTypes';
-import * as api from '../api';
+import * as api from '../api/index.js';
 
 // Action creators - These are functions that return actions
 // To fetch all posts, some time has to pass. Therefore, we have to use redux thunk to add an asynchronous funtion
