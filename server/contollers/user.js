@@ -24,6 +24,26 @@ export const signin = async (req, res) => {
     }
 }
 
+// sign up controller
 export const signup = async (req, res) => {
-    
+    const { email, password, confirmPassword, firstName, lastName  } = req.body;
+
+    try {
+        const existingUser = await User.findOne({ email });
+
+        if(existingUser) return res.status(400).json({ message: "User already exist." });
+
+        if(password !== confirmPassword) return res.status(400).json({ message: "Passwords don't match" });
+
+        const hashedPassword = await bcrypt.hash(password, 12);
+
+        const result = await User.create({ email, password: hashedPassword, name: `${firstName} ${lstName}` });
+
+        const token = jwt.sign({ email: result.email, id: result._id }, 'test', { expiresIn: "1h" } ) // getting the user's jasonwebtoken that we need to send to the frontendresult     
+
+        res.status(200).json({ result, token }); // returning the token
+
+    } catch (error) {
+        res.status(500).json({ message: 'Something went wrong.' });
+    }
 }
