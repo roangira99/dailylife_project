@@ -27,9 +27,9 @@ const Auth = () => {
     e.preventDefault(); // to prevent the browser from refreshing when on form submit
     
     if(isSignup) {
-        dispatch(signup(formData, history))
+        dispatch(signup(formData, navigate))
     } else {
-        dispatch(signin(formData, history))
+        dispatch(signin(formData, navigate))
     }
   };
 
@@ -39,7 +39,7 @@ const Auth = () => {
 
   const switchmode = () => {
     setIsSignUp((prevIsSignup) => !prevIsSignup);
-    handleShowPassword(false)
+    setShowPassword(false)
   };
 
   const googleSuccess = async (res) => {

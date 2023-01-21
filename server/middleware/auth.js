@@ -1,4 +1,4 @@
-import jwt, { decode } from 'jasonwebtoken';
+import jwt from 'jsonwebtoken';
 
 const auth = async (req, res, next) => {
     try {
@@ -23,6 +23,6 @@ const auth = async (req, res, next) => {
     } catch (error) {
         console.log(error);
     }
-}
+};
 
 export default auth;
