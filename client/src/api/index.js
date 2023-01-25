@@ -1,6 +1,6 @@
 import axios from 'axios'; // used to make API calls
 
-const API = axios.create({ baseURL: 'http://localhost:5000'}); // returns all post that we currently have in the database
+const API = axios.create({ baseURL: 'http://localhost:5000' }); // returns all post that we currently have in the database
 
 API.interceptors.request.use((req) => {
     if(localStorage.getItem('profile')) {

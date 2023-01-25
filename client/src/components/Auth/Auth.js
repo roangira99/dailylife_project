@@ -6,38 +6,38 @@ import { useNavigate } from 'react-router-dom';
 
 import Icon from './icon';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import { AUTH } from '../../constants/actionTypes';
 import useStyles from './styles';
 import Input from './Input';
 import { signin, signup } from '../../actions/auth';
 
-const initialState = { firstName: '', lastName: '', email: '', password: '', confirmPassword: '' }
+const initialState = { firstName: '', lastName: '', email: '', password: '', confirmPassword: '' };
 
-const Auth = () => {
+const SignUp = () => {
   const classes = useStyles();
-  const [showPassword, setShowPassword] = useState(false);
   const [isSignup, setIsSignUp] = useState(false);
-  const [formData, setFormData] = useState(initialState);
+  const [form, setForm] = useState(initialState);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-
+  
+  
+  const [showPassword, setShowPassword] = useState(false);
   const handleShowPassword = () => setShowPassword((prevShowPassword) => !prevShowPassword);
 
   const handleSubmit = (e) => {
     e.preventDefault(); // to prevent the browser from refreshing when on form submit
     
     if(isSignup) {
-        dispatch(signup(formData, navigate))
+        dispatch(signup(form, navigate))
     } else {
-        dispatch(signin(formData, navigate))
+        dispatch(signin(form, navigate))
     }
   };
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
   const switchmode = () => {
+    setForm(initialState);
     setIsSignUp((prevIsSignup) => !prevIsSignup);
     setShowPassword(false)
   };
@@ -47,7 +47,7 @@ const Auth = () => {
     const token = res?.tokenId;
 
     try {
-        dispatch({ type: 'AUTH', data: { result, token } });
+        dispatch({ type: AUTH, data: { result, token } });
 
         navigate.push('/');
     } catch (error) {
@@ -55,10 +55,7 @@ const Auth = () => {
     }
   };        
 
-  const googleFailure = (error) => {
-    console.log(error);
-    console.log('Google Sign In was unsuccessful. Try again later.');
-  };
+  const googleError = () => alert('Google Sign In was unsuccessful. Try again later.');
 
   return (
     <Container component="main" maxWidth="xs">
@@ -91,7 +88,7 @@ const Auth = () => {
                             </Button>
                     )} 
                     onSuccess={googleSuccess}
-                    onFailure={googleFailure}
+                    onFailure={googleError}
                     cookiePolicy="single_host_origin"
                     />
                 <Grid container justify="flex-end">
@@ -107,4 +104,4 @@ const Auth = () => {
   );
 };
 
-export default Auth;
+export default SignUp;
